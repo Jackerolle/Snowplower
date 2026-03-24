@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_main"]
+[ext_resource type="Script" path="res://scripts/world.gd" id="2_world"]
+[ext_resource type="Script" path="res://scripts/snow_field.gd" id="3_snow"]
+[ext_resource type="Script" path="res://scripts/truck.gd" id="4_truck"]
+[ext_resource type="Script" path="res://scripts/follow_camera.gd" id="5_camera"]
+[ext_resource type="Script" path="res://scripts/hud.gd" id="6_hud"]
+
+[sub_resource type="RectangleShape2D" id="1_truck_shape"]
+size = Vector2(90, 48)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_main")
+
+[node name="World" type="Node2D" parent="."]
+script = ExtResource("2_world")
+
+[node name="SnowField" type="Node2D" parent="."]
+script = ExtResource("3_snow")
+z_index = 1
+
+[node name="Truck" type="CharacterBody2D" parent="."]
+script = ExtResource("4_truck")
+z_index = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Truck"]
+shape = SubResource("1_truck_shape")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("5_camera")
+zoom = Vector2(0.95, 0.95)
+position_smoothing_enabled = false
+enabled = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="HUD" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("6_hud")
+
